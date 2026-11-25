@@ -2,12 +2,10 @@
 
 Tài liệu này giả định máy đã có sẵn:
 
-- Ít nhất **một máy ảo Kali Linux** (VMware Workstation/Player) — dùng làm **Gateway**.
+- **Một máy ảo Kali Linux** (VMware Workstation/Player) — sẽ dùng làm **Gateway**,
+  và nhân bản thêm một máy nữa làm **Kali-Attacker** (Mục 2).
 - **Arduino IDE** đã cài sẵn trên máy Windows/host.
 - Một mạch **ESP32 DevKit V1** (hoặc tương đương) nối qua cáp USB.
-
-Để chạy đủ 4 kịch bản demo, cần thêm **một máy ảo Kali Linux thứ hai** làm máy tấn
-công (**Kali-Attacker**) — có thể clone từ máy Kali đã có.
 
 ---
 
@@ -17,55 +15,138 @@ Hai máy ảo Kali và ESP32 phải nằm **cùng một mạng LAN thật** (kh�
 Gateway bắt được đúng gói tin có IP nguồn thật.
 
 1. Bật một mạng **Wi-Fi 2,4 GHz** (hotspot hoặc router) — ESP32 chỉ hỗ trợ 2,4 GHz.
-2. Trong VMware: **Edit → Virtual Network Editor → Change Settings** (cần quyền
-   Admin). Nếu danh sách **không có dòng Bridged nào**, bấm **Add Network**, chọn
-   radio **Bridged**, ở ô **Bridged to** chọn **đúng card Wi-Fi của laptop** (không
-   để "Automatic" — chế độ tự động hay bắc cầu nhầm card khác khi máy có nhiều card
-   mạng, gây mất mạng dù máy ảo vẫn có IP).
-3. Với **từng máy ảo Kali**: Settings → Network Adapter → **Custom: Specific virtual
-   network** → chọn đúng mạng Bridged vừa tạo.
-4. Nếu card Wi-Fi dùng chip **Killer** và vẫn không có mạng sau bước trên: Control
-   Panel → Network Connections → chuột phải card Wi-Fi → Properties → tick
-   **"VMware Bridge Protocol"**.
 
-Kiểm tra trên từng máy Kali:
+2. Mở **VM → Settings → Network Adapter**. Mặc định VMware thường để
+   **"Bridged (Automatic)"**:
 
-```bash
-ip -4 addr show eth0
-ping -c 3 1.1.1.1
-```
+   ![Network Adapter mặc định là Bridged (Automatic)](assets/vmware-network-adapter.png)
 
-`ping` phải có phản hồi. Nếu không, xem lại bước 2–4 trước khi tiếp tục.
+   Chế độ "Automatic" để VMware tự chọn card mạng để bắc cầu — trên máy có nhiều
+   card (Wi-Fi, Ethernet, card ảo của VPN/Bluetooth...) nó hay chọn nhầm card chết
+   hoặc card không có mạng, khiến máy ảo "có vẻ như có mạng" (vẫn nhận IP) nhưng
+   không ra Internet được. Nên luôn chọn **"Custom: Specific virtual network"** và
+   trỏ đích danh vào một mạng Bridged (bước 3–5).
+
+3. Mở **Edit → Virtual Network Editor → Change Settings** (cần quyền Admin, bấm vào
+   biểu tượng khiên nếu được hỏi). Nhiều máy mặc định **không có sẵn mạng Bridged
+   nào** trong danh sách, chỉ có Host-only và NAT:
+
+   ![Virtual Network Editor chưa có mạng Bridged](assets/vmware-network-editor-missing-bridge.png)
+
+4. Bấm **Add Network...**, chọn một tên còn trống (ví dụ VMnet0), rồi chọn radio
+   **"Bridged (connect VMs directly to the external network)"**. Ở ô **"Bridged
+   to:"**, bấm dropdown và chọn **đúng tên card Wi-Fi của laptop** (không để
+   "Automatic"):
+
+   ![Đã thêm VMnet0, chọn đúng card Wi-Fi trong Bridged to](assets/vmware-network-editor-bridge-added.png)
+
+   Bấm **Apply → OK**.
+
+5. Quay lại **VM → Settings → Network Adapter** của **từng máy ảo Kali**: chọn
+   **"Custom: Specific virtual network"**, ở dropdown chọn đúng mạng vừa tạo
+   (VMnet0) → **OK**.
+
+6. Nếu card Wi-Fi dùng chip **Killer** (Killer Wi-Fi 6/6E...) và vẫn không có
+   mạng sau các bước trên: mở **Control Panel → Network Connections**, chuột phải
+   card Wi-Fi → **Properties**, tick vào **"VMware Bridge Protocol"** nếu đang bỏ
+   trống.
+
+7. Kiểm tra trên **từng máy Kali**:
+
+   ```bash
+   ip -4 addr show eth0
+   ping -c 3 1.1.1.1
+   ```
+
+   `ping` phải có phản hồi. Nếu `ip addr` không ra IP hoặc ra dạng `169.254.x.x`,
+   quay lại bước 2–6. Nếu có IP nhưng `ping` không phản hồi và lệnh `apt update`
+   báo `Temporary failure resolving ...`, đó là dấu hiệu mạng Bridged vẫn sai card
+   (không phải lỗi DNS riêng lẻ) — kiểm tra lại bước 4 và 6.
 
 ---
 
-## 2. Lấy mã nguồn
+## 2. Từ một máy Kali thành hai máy (nhân bản làm Kali-Attacker)
 
-Trên máy Windows (host):
+Nhân bản (clone) máy Kali đã cài sẵn là cách nhanh nhất để có máy thứ hai, thay vì
+cài mới từ đầu.
 
-```powershell
-git clone <URL-repo-này> ddos-iot
-```
+1. **Tắt hẳn máy ảo Kali gốc** (Power Off, không chỉ Suspend) — VMware không cho
+   full clone một máy đang chạy.
+2. Trong VMware Library, chuột phải vào máy Kali gốc → **Manage → Clone...**
+3. Chọn **"Clone from: The current state in the virtual machine"** → Next.
+4. Chọn **"Create a full clone"** (khuyên dùng — máy độc lập hoàn toàn, không phụ
+   thuộc máy gốc; "Linked clone" nhẹ hơn nhưng cần máy gốc còn tồn tại mãi).
+5. Đặt tên, ví dụ `Kali-Attacker`, chọn nơi lưu → **Finish**. Clone một ổ đĩa
+   20–30 GB mất vài phút.
+6. Bật máy `Kali-Attacker` vừa clone, vào **VM → Settings → Network Adapter**,
+   trỏ vào **đúng mạng Bridged** đã tạo ở Mục 1 (giống máy Gateway).
+7. Trên `Kali-Attacker`, đổi tên máy và làm mới khóa SSH / IP — vì clone sao chép
+   y hệt máy gốc, hai máy có thể bị trùng `machine-id`/khóa SSH gây lỗi khó hiểu
+   khi hai máy cố gắng kết nối lẫn nhau:
 
-Trên **Kali Gateway**, bật SSH rồi chép repo sang (không cần `datasets/`, `data/`,
-`results/` — các script dưới đây không dùng tới):
+   ```bash
+   sudo hostnamectl set-hostname attacker
+   sudo rm -f /etc/ssh/ssh_host_*
+   sudo dpkg-reconfigure openssh-server
+   sudo systemctl restart NetworkManager   # hoặc khởi động lại máy ảo
+   ip -4 addr show eth0                    # xác nhận IP khác máy Gateway
+   ```
+
+8. Ghi lại IP của cả hai máy (`ip -4 addr show eth0` trên từng máy) — sẽ dùng
+   xuyên suốt các mục sau. Gọi chúng là `<IP-Gateway>` và `<IP-Attacker>`.
+
+---
+
+## 3. Đưa mã nguồn vào máy ảo
+
+Chọn một trong hai cách dưới đây. Chỉ cần làm cho **Kali Gateway**; phần
+`deploy_kali_attacker/` còn cần chép riêng sang **Kali-Attacker** ở Mục 5.
+
+### Cách A — VMware Shared Folder (không cần biết IP trước)
+
+1. Chuột phải máy ảo (máy tắt hoặc đang chạy đều được với bản Workstation/Player
+   mới) → **Settings → Options → Shared Folders** → chọn **"Always enabled"** →
+   **Add...** → trỏ tới thư mục dự án trên Windows (thư mục đã `git clone` về).
+2. Trong Kali, cài công cụ đọc shared folder nếu chưa có, rồi khởi động lại:
+
+   ```bash
+   sudo apt update
+   sudo apt install -y open-vm-tools open-vm-tools-desktop
+   sudo reboot
+   ```
+
+3. Sau khi khởi động lại, thư mục chia sẻ nằm ở `/mnt/hgfs/<tên-thư-mục>`. Chỉ
+   chép đúng phần cần (bỏ qua `datasets/`, `data/`, `results/` — không cần cho
+   demo):
+
+   ```bash
+   mkdir -p ~/ddos_iot
+   cd /mnt/hgfs/<tên-thư-mục-dự-án>
+   cp -r check_env.py requirements-kali.txt src deploy_kali ~/ddos_iot/
+   ```
+
+### Cách B — SCP qua mạng (biết IP, đã bật SSH)
+
+Trên Kali Gateway, bật SSH:
 
 ```bash
 sudo systemctl enable --now ssh
 ```
 
-Từ Windows:
+Trên Windows (PowerShell), từ thư mục dự án:
 
 ```powershell
-cd ddos-iot
-ssh kali@<IP-Kali-Gateway> "mkdir -p ~/ddos_iot"
-scp check_env.py requirements-kali.txt kali@<IP-Kali-Gateway>:~/ddos_iot/
-scp -r src deploy_kali kali@<IP-Kali-Gateway>:~/ddos_iot/
+ssh kali@<IP-Gateway> "mkdir -p ~/ddos_iot"
+scp check_env.py requirements-kali.txt kali@<IP-Gateway>:~/ddos_iot/
+scp -r src deploy_kali kali@<IP-Gateway>:~/ddos_iot/
 ```
+
+Nếu PowerShell báo `ssh`/`scp` không phải lệnh, bật OpenSSH Client:
+`Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0`.
 
 ---
 
-## 3. Cài đặt Gateway
+## 4. Cài đặt Gateway
 
 Trên **Kali Gateway**:
 
@@ -81,16 +162,19 @@ sẵn trong `deploy_kali/`.
 
 ---
 
-## 4. Cài đặt Kali-Attacker (để bấm tấn công ngay trên dashboard)
+## 5. Cài đặt Kali-Attacker (để bấm tấn công ngay trên dashboard)
 
-Nếu chỉ cần chạy tay `hping3`/`nmap` thì có thể bỏ qua bước này và làm thủ công ở
-Mục 7. Để bấm nút trên dashboard, làm theo đúng
+Chép `deploy_kali_attacker/` sang Kali-Attacker bằng một trong hai cách ở Mục 3
+(Shared Folder hoặc `scp -r deploy_kali_attacker kali@<IP-Attacker>:~/ddos_iot/`).
+
+Nếu chỉ cần chạy tay `hping3`/`nmap` thì có thể bỏ qua phần SSH dưới đây và làm
+thủ công ở Mục 8. Để bấm nút trên dashboard, làm theo đúng
 **[deploy_kali_attacker/README.md](../deploy_kali_attacker/README.md)** — tóm tắt:
 
-1. Chép `deploy_kali_attacker/` sang Kali-Attacker, cài `attack_runner.sh` +
-   quyền `sudo` giới hạn, chép `attack_wrapper.sh`.
-2. Trên Kali Gateway, tạo khóa SSH riêng cho việc này.
-3. Trên Kali-Attacker, thêm khóa vào `authorized_keys` với **forced command** (khóa
+1. Trên Kali-Attacker: cài `attack_runner.sh` vào `/opt` + quyền `sudo` giới hạn,
+   chép `attack_wrapper.sh` vào thư mục home.
+2. Trên Kali Gateway: tạo khóa SSH riêng cho việc này.
+3. Trên Kali-Attacker: thêm khóa vào `authorized_keys` với **forced command** (khóa
    chỉ được phép chạy đúng `attack_wrapper.sh`, không chạy được lệnh tùy ý).
 4. Thử kết nối từ Gateway, phải thấy `started ...` và không hỏi mật khẩu.
 
@@ -104,7 +188,7 @@ sudo systemctl enable --now ssh
 
 ---
 
-## 5. Nạp firmware cho ESP32
+## 6. Nạp firmware cho ESP32
 
 1. Cắm ESP32 vào máy Windows qua USB.
 2. Mở `deploy_esp32/esp32_iot_node/esp32_iot_node.ino` bằng Arduino IDE.
@@ -115,7 +199,7 @@ sudo systemctl enable --now ssh
    ```cpp
    const char* ssid = "<tên Wi-Fi 2,4 GHz>";
    const char* password = "<mật khẩu Wi-Fi>";
-   const char* gateway_ip = "<IP của Kali Gateway>";
+   const char* gateway_ip = "<IP-Gateway>";
    ```
 5. **Tools → Board**: chọn **ESP32 Dev Module**. **Tools → Port**: chọn đúng cổng
    COM. Bấm **Upload**.
@@ -130,14 +214,14 @@ Chi tiết và cách điều khiển tấn công từ Serial Monitor: xem
 
 ---
 
-## 6. Khởi động giám sát và mở dashboard
+## 7. Khởi động giám sát và mở dashboard
 
 Trên **Kali Gateway**:
 
 ```bash
 cd ~/ddos_iot/deploy_kali
 sudo iptables -F INPUT
-export ATTACKER_HOST=<IP-Kali-Attacker>   # bỏ qua nếu không làm Mục 4
+export ATTACKER_HOST=<IP-Attacker>   # bỏ qua nếu không làm Mục 5
 sudo -E ./start_monitor.sh eth0 5000 --block
 ```
 
@@ -149,7 +233,7 @@ Phải thấy đúng các dòng:
 [ENGINE] Monitoring with BiGRU-Attention | window 1.0s | ...
 ```
 
-Trên Windows, mở trình duyệt: `http://<IP-Kali-Gateway>:5000`.
+Trên Windows, mở trình duyệt: `http://<IP-Gateway>:5000`.
 
 Nếu lưu lượng bình thường (router, mDNS...) gây cảnh báo giả, thêm tham số
 `--local-ip <IP-cần-bỏ-qua>` (lặp lại được nhiều lần) khi khởi động, ví dụ:
@@ -161,7 +245,7 @@ sudo -E python3 ../src/realtime/web_dashboard.py --interface eth0 --port 5000 \
 
 ---
 
-## 7. Bốn kịch bản demo
+## 8. Bốn kịch bản demo
 
 Trước mỗi kịch bản, bấm **"Gỡ chặn tất cả"** trên dashboard (hoặc
 `sudo iptables -F INPUT`) để màn hình gọn.
@@ -175,10 +259,10 @@ Kỳ vọng: cảnh báo `Mirai_udpplain`, độ tin cậy trên 98%, IP ESP32 b
 
 ### Kịch bản 3 — SYN Flood từ Kali-Attacker
 Khung "Điều Khiển Kali-Attacker": nhập IP Attacker (nếu chưa tự điền), bấm
-**SYN Flood**. Không có khung này (bỏ qua Mục 4) thì chạy tay trên Kali-Attacker:
+**SYN Flood**. Không có khung này (bỏ qua Mục 5) thì chạy tay trên Kali-Attacker:
 
 ```bash
-sudo timeout 15s hping3 -S -p 80 --flood <IP-Kali-Gateway>
+sudo timeout 15s hping3 -S -p 80 --flood <IP-Gateway>
 ```
 
 Kỳ vọng: có cảnh báo (thường gán nhãn `Gafgyt_junk` — mô hình nhận diện theo hành vi
@@ -192,7 +276,7 @@ báo đổi theo đúng mô hình vừa chọn.
 
 ---
 
-## 8. Kết thúc demo
+## 9. Kết thúc demo
 
 ```bash
 # trên dashboard: bấm "Dừng" nếu ESP32 còn đang flood
@@ -205,12 +289,13 @@ sudo iptables -L INPUT -n   # phải thấy danh sách trống
 
 ---
 
-## 9. Xử lý sự cố thường gặp
+## 10. Xử lý sự cố thường gặp
 
 | Hiện tượng | Nguyên nhân / cách sửa |
 |---|---|
-| `ping 1.1.1.1` không phản hồi dù có IP | Xem lại Mục 1 (Bridged chưa đúng card, hoặc card Killer cần bật VMware Bridge Protocol) |
+| `ping 1.1.1.1` không phản hồi dù có IP | Mạng Bridged chưa đúng card (Mục 1), hoặc card Killer cần bật "VMware Bridge Protocol" |
 | `apt update` báo "Temporary failure resolving" | Mạng chưa thông thật sự (Mục 1), không phải lỗi DNS riêng lẻ |
+| Hai máy Kali bị trùng IP / lỗi SSH "host key changed" sau khi clone | Chưa làm Mục 2 bước 7 (đổi hostname, tạo lại khóa SSH host) |
 | Dashboard không thấy ESP32 | Sai SSID/mật khẩu/`gateway_ip` trong `.ino`, hoặc hotspot không phải 2,4 GHz |
 | `Model ONNX: .../best_dl_int8.onnx` thay vì `.../registry.json` | Thiếu file `deploy_kali/model/registry.json` — chép lại đúng thư mục `deploy_kali/` |
 | Nút Kali-Attacker báo lỗi SSH | Xem mục "Kiểm tra sự cố" trong `deploy_kali_attacker/README.md` |
@@ -218,7 +303,7 @@ sudo iptables -L INPUT -n   # phải thấy danh sách trống
 
 ---
 
-## 10. Huấn luyện lại từ đầu (tùy chọn)
+## 11. Huấn luyện lại từ đầu (tùy chọn)
 
 Không bắt buộc để chạy demo — bộ mô hình trong `deploy_kali/model/` đã đủ dùng.
 Muốn huấn luyện lại:
