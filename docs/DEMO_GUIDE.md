@@ -99,8 +99,15 @@ cài mới từ đầu.
 
 ## 3. Đưa mã nguồn vào máy ảo
 
-Chọn một trong hai cách dưới đây. Chỉ cần làm cho **Kali Gateway**; phần
-`deploy_kali_attacker/` còn cần chép riêng sang **Kali-Attacker** ở Mục 5.
+Trước tiên, trên máy Windows (host), tải mã nguồn về:
+
+```powershell
+git clone https://github.com/JimmyDo0504/ddos-iot-detection.git ddos-iot
+```
+
+Sau đó chọn một trong hai cách dưới đây để đưa vào máy ảo. Chỉ cần làm cho
+**Kali Gateway**; phần `deploy_kali_attacker/` còn cần chép riêng sang
+**Kali-Attacker** ở Mục 5.
 
 ### Cách A — VMware Shared Folder (không cần biết IP trước)
 
