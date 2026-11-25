@@ -102,7 +102,7 @@ cài mới từ đầu.
 Trước tiên, trên máy Windows (host), tải mã nguồn về:
 
 ```powershell
-git clone https://github.com/JimmyDo0504/ddos-iot-detection.git ddos-iot
+git clone https://github.com/JimmyDo0504/ddos-iot-detection.git ddos_iot
 ```
 
 Sau đó chọn một trong hai cách dưới đây để đưa vào máy ảo. Chỉ cần làm cho
