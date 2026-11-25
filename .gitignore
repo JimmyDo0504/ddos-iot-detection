@@ -1,0 +1,35 @@
+# Dữ liệu thô và cache xử lý — quá lớn cho GitHub, không commit.
+# Xem docs/DEMO_GUIDE.md để biết cách tải lại khi cần huấn luyện.
+/datasets/
+/data/
+
+# Báo cáo, slide, tài liệu nộp — không đưa lên GitHub
+/baocaocuoiky/
+*.doc
+*.docx
+
+# Kết quả huấn luyện (mô hình .pt/.pkl, hình, log) — tái tạo bằng run_pipeline.py.
+# Bộ mô hình dùng để demo đã có sẵn trong deploy_kali/model/ (không nằm trong thư mục này).
+/results/
+
+# Bản backup mô hình cũ (có rò rỉ dữ liệu, chỉ giữ tham khảo nội bộ)
+/backup/
+
+# Bằng chứng lab (pcap chứa IP mạng demo cụ thể)
+/captures/
+
+# Log console khi chạy pipeline
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# Ghi chú tiến độ nội bộ (không phải tài liệu công khai)
+HUONG_DAN_LAM_BAI.md
+
+# Hệ điều hành / editor
+.DS_Store
+Thumbs.db

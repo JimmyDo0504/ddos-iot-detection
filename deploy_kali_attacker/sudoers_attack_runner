@@ -1,0 +1,4 @@
+# Cho phép user chạy SSH (mặc định "kali") gọi ĐÚNG MỘT script này mà không cần nhập mật khẩu.
+# Cài: sudo cp sudoers_attack_runner /etc/sudoers.d/attack_runner && sudo chmod 440 /etc/sudoers.d/attack_runner
+# Luôn kiểm tra cú pháp trước khi áp dụng: sudo visudo -c -f /etc/sudoers.d/attack_runner
+kali ALL=(root) NOPASSWD: /opt/attack_runner.sh

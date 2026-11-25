@@ -1,0 +1,5 @@
+# Kali Linux gateway (real-time monitor only, no training libraries needed)
+numpy>=1.24
+onnxruntime>=1.16
+scapy>=2.5
+flask>=3.0

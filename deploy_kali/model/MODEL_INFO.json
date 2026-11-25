@@ -1,0 +1,31 @@
+{
+  "dataset": "N-BaIoT",
+  "model": "GRU",
+  "test_f1_macro": 99.942,
+  "classes": [
+    "Benign",
+    "Gafgyt_combo",
+    "Gafgyt_junk",
+    "Gafgyt_scan",
+    "Gafgyt_tcpudp",
+    "Mirai_ack",
+    "Mirai_scan",
+    "Mirai_syn",
+    "Mirai_udp",
+    "Mirai_udpplain"
+  ],
+  "onnx": {
+    "fp32": {
+      "file": "best_dl.onnx",
+      "size_KB": 160.77,
+      "accuracy": 99.939,
+      "latency_ms_single": 0.1224
+    },
+    "int8": {
+      "file": "best_dl_int8.onnx",
+      "size_KB": 138.91,
+      "accuracy": 99.128,
+      "latency_ms_single": 0.1262
+    }
+  }
+}

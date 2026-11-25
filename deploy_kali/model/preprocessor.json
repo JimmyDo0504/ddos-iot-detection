@@ -1,0 +1,547 @@
+{
+  "input_features": [
+    "MI_dir_L5_weight",
+    "MI_dir_L5_mean",
+    "MI_dir_L5_variance",
+    "MI_dir_L3_weight",
+    "MI_dir_L3_mean",
+    "MI_dir_L3_variance",
+    "MI_dir_L1_weight",
+    "MI_dir_L1_mean",
+    "MI_dir_L1_variance",
+    "MI_dir_L0.1_weight",
+    "MI_dir_L0.1_mean",
+    "MI_dir_L0.1_variance",
+    "MI_dir_L0.01_weight",
+    "MI_dir_L0.01_mean",
+    "MI_dir_L0.01_variance",
+    "H_L5_weight",
+    "H_L5_mean",
+    "H_L5_variance",
+    "H_L3_weight",
+    "H_L3_mean",
+    "H_L3_variance",
+    "H_L1_weight",
+    "H_L1_mean",
+    "H_L1_variance",
+    "H_L0.1_weight",
+    "H_L0.1_mean",
+    "H_L0.1_variance",
+    "H_L0.01_weight",
+    "H_L0.01_mean",
+    "H_L0.01_variance",
+    "HH_L5_weight",
+    "HH_L5_mean",
+    "HH_L5_std",
+    "HH_L5_magnitude",
+    "HH_L5_radius",
+    "HH_L5_covariance",
+    "HH_L5_pcc",
+    "HH_L3_weight",
+    "HH_L3_mean",
+    "HH_L3_std",
+    "HH_L3_magnitude",
+    "HH_L3_radius",
+    "HH_L3_covariance",
+    "HH_L3_pcc",
+    "HH_L1_weight",
+    "HH_L1_mean",
+    "HH_L1_std",
+    "HH_L1_magnitude",
+    "HH_L1_radius",
+    "HH_L1_covariance",
+    "HH_L1_pcc",
+    "HH_L0.1_weight",
+    "HH_L0.1_mean",
+    "HH_L0.1_std",
+    "HH_L0.1_magnitude",
+    "HH_L0.1_radius",
+    "HH_L0.1_covariance",
+    "HH_L0.1_pcc",
+    "HH_L0.01_weight",
+    "HH_L0.01_mean",
+    "HH_L0.01_std",
+    "HH_L0.01_magnitude",
+    "HH_L0.01_radius",
+    "HH_L0.01_covariance",
+    "HH_L0.01_pcc",
+    "HpHp_L5_weight",
+    "HpHp_L5_mean",
+    "HpHp_L5_std",
+    "HpHp_L5_magnitude",
+    "HpHp_L5_radius",
+    "HpHp_L5_covariance",
+    "HpHp_L5_pcc",
+    "HpHp_L3_weight",
+    "HpHp_L3_mean",
+    "HpHp_L3_std",
+    "HpHp_L3_magnitude",
+    "HpHp_L3_radius",
+    "HpHp_L3_covariance",
+    "HpHp_L3_pcc",
+    "HpHp_L1_weight",
+    "HpHp_L1_mean",
+    "HpHp_L1_std",
+    "HpHp_L1_magnitude",
+    "HpHp_L1_radius",
+    "HpHp_L1_covariance",
+    "HpHp_L1_pcc",
+    "HpHp_L0.1_weight",
+    "HpHp_L0.1_mean",
+    "HpHp_L0.1_std",
+    "HpHp_L0.1_magnitude",
+    "HpHp_L0.1_radius",
+    "HpHp_L0.1_covariance",
+    "HpHp_L0.1_pcc",
+    "HpHp_L0.01_weight",
+    "HpHp_L0.01_mean",
+    "HpHp_L0.01_std",
+    "HpHp_L0.01_magnitude",
+    "HpHp_L0.01_radius",
+    "HpHp_L0.01_covariance",
+    "HpHp_L0.01_pcc"
+  ],
+  "features": [
+    "MI_dir_L0.01_mean",
+    "MI_dir_L0.01_variance",
+    "MI_dir_L0.1_weight",
+    "MI_dir_L1_weight",
+    "MI_dir_L0.01_weight",
+    "MI_dir_L1_mean",
+    "HH_L5_magnitude",
+    "MI_dir_L5_mean",
+    "HH_L5_mean",
+    "MI_dir_L5_weight",
+    "HH_L0.1_weight",
+    "HH_L5_weight",
+    "MI_dir_L1_variance",
+    "HH_L0.01_weight",
+    "HpHp_L0.1_weight",
+    "HpHp_L0.01_weight",
+    "MI_dir_L5_variance",
+    "HH_L0.01_std",
+    "HpHp_L5_weight",
+    "HpHp_L0.01_std",
+    "HH_L0.01_radius",
+    "HpHp_L0.1_std",
+    "HH_L0.1_std",
+    "HpHp_L5_std",
+    "HH_L1_std",
+    "HpHp_L1_std",
+    "HH_L0.1_radius",
+    "HH_L1_radius",
+    "HH_L0.01_pcc",
+    "HH_L5_std"
+  ],
+  "log_mask": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true
+  ],
+  "mean": [
+    160.4004290061996,
+    16639.22452024421,
+    3282.2211203980296,
+    381.120306405091,
+    14433.854400164319,
+    160.3991375277403,
+    170.72689363291602,
+    158.29654780683137,
+    159.8968545573088,
+    86.416687792567,
+    1969.6019112249824,
+    50.73406132860531,
+    15547.615269818394,
+    7202.1418768514695,
+    1.1411027936940592,
+    1.3264530908559657,
+    13017.115272989253,
+    0.6486717359677182,
+    0.8865040126871258,
+    0.1430841561789592,
+    1.2181368129277794,
+    0.11664436792530229,
+    0.583223269823413,
+    0.06652289661377339,
+    0.2933340840727305,
+    0.07852494748019757,
+    1.0868355436713382,
+    0.5705998027461434,
+    0.008036963925484527,
+    0.14581822116265625
+  ],
+  "scale": [
+    140.1080683544673,
+    25100.971760955395,
+    2759.21271262818,
+    314.0317637704064,
+    14396.960297662812,
+    143.69559436032185,
+    193.89491742054048,
+    150.6354342129399,
+    189.24171305803975,
+    68.2063551182783,
+    2626.425582035239,
+    66.87604782471189,
+    24857.21286399555,
+    10492.127144238992,
+    1.6264571448770022,
+    1.9756294241107244,
+    22521.801191192128,
+    1.1515811064491277,
+    0.7795005325110832,
+    0.7414048807000585,
+    2.4017332885624993,
+    0.6787337221989893,
+    1.070016983714675,
+    0.5245679585951296,
+    0.8448390299882128,
+    0.5662641094390863,
+    2.2263720750235176,
+    1.820647044197912,
+    0.09577672906389842,
+    0.6854304695409431
+  ],
+  "classes": [
+    "Benign",
+    "Gafgyt_combo",
+    "Gafgyt_junk",
+    "Gafgyt_scan",
+    "Gafgyt_tcpudp",
+    "Mirai_ack",
+    "Mirai_scan",
+    "Mirai_syn",
+    "Mirai_udp",
+    "Mirai_udpplain"
+  ],
+  "corr_threshold": 0.98,
+  "top_k": 30,
+  "dropped_constant": [],
+  "dropped_correlated": [
+    [
+      "MI_dir_L3_weight",
+      "MI_dir_L5_weight",
+      0.9887850530566535
+    ],
+    [
+      "MI_dir_L3_mean",
+      "MI_dir_L5_mean",
+      0.9926835931942455
+    ],
+    [
+      "MI_dir_L3_variance",
+      "MI_dir_L5_variance",
+      0.9849186193914762
+    ],
+    [
+      "MI_dir_L0.1_mean",
+      "MI_dir_L1_mean",
+      0.9859191304850966
+    ],
+    [
+      "MI_dir_L0.1_variance",
+      "MI_dir_L1_variance",
+      0.9800862980531839
+    ],
+    [
+      "H_L5_weight",
+      "MI_dir_L5_weight",
+      1.0
+    ],
+    [
+      "H_L5_mean",
+      "MI_dir_L5_mean",
+      1.0
+    ],
+    [
+      "H_L5_variance",
+      "MI_dir_L5_variance",
+      1.0
+    ],
+    [
+      "H_L3_weight",
+      "MI_dir_L5_weight",
+      0.9887850530566535
+    ],
+    [
+      "H_L3_mean",
+      "MI_dir_L5_mean",
+      0.9926835931942455
+    ],
+    [
+      "H_L3_variance",
+      "MI_dir_L5_variance",
+      0.9849186193914762
+    ],
+    [
+      "H_L1_weight",
+      "MI_dir_L1_weight",
+      1.0
+    ],
+    [
+      "H_L1_mean",
+      "MI_dir_L1_mean",
+      1.0
+    ],
+    [
+      "H_L1_variance",
+      "MI_dir_L1_variance",
+      0.9999999999999997
+    ],
+    [
+      "H_L0.1_weight",
+      "MI_dir_L0.1_weight",
+      0.999999999999884
+    ],
+    [
+      "H_L0.1_mean",
+      "MI_dir_L1_mean",
+      0.9859191218798815
+    ],
+    [
+      "H_L0.1_variance",
+      "MI_dir_L1_variance",
+      0.9800862991976382
+    ],
+    [
+      "H_L0.01_weight",
+      "MI_dir_L0.01_weight",
+      0.9999999999972371
+    ],
+    [
+      "H_L0.01_mean",
+      "MI_dir_L0.01_mean",
+      0.9999995555609235
+    ],
+    [
+      "H_L0.01_variance",
+      "MI_dir_L0.01_variance",
+      0.9999999996065875
+    ],
+    [
+      "HH_L3_weight",
+      "HH_L5_weight",
+      0.9967350318928714
+    ],
+    [
+      "HH_L3_mean",
+      "HH_L5_mean",
+      0.9999298274468237
+    ],
+    [
+      "HH_L3_std",
+      "HH_L5_std",
+      0.9929884892186093
+    ],
+    [
+      "HH_L3_magnitude",
+      "HH_L5_magnitude",
+      0.999933115174876
+    ],
+    [
+      "HH_L3_radius",
+      "HH_L5_radius",
+      0.9973387114553643
+    ],
+    [
+      "HH_L3_covariance",
+      "HH_L5_covariance",
+      0.9910002485971557
+    ],
+    [
+      "HH_L1_weight",
+      "HH_L5_weight",
+      0.9818950111040325
+    ],
+    [
+      "HH_L1_mean",
+      "HH_L5_mean",
+      0.9995473438534108
+    ],
+    [
+      "HH_L1_magnitude",
+      "HH_L5_magnitude",
+      0.9989682856367134
+    ],
+    [
+      "HH_L0.1_mean",
+      "HH_L5_mean",
+      0.9985251184133123
+    ],
+    [
+      "HH_L0.1_magnitude",
+      "HH_L5_magnitude",
+      0.9970611110310119
+    ],
+    [
+      "HH_L0.01_mean",
+      "HH_L5_mean",
+      0.9969700927545689
+    ],
+    [
+      "HH_L0.01_magnitude",
+      "HH_L5_magnitude",
+      0.9921751716167655
+    ],
+    [
+      "HpHp_L5_mean",
+      "HH_L5_mean",
+      0.9992657799503876
+    ],
+    [
+      "HpHp_L5_magnitude",
+      "HH_L5_magnitude",
+      0.9944929052934375
+    ],
+    [
+      "HpHp_L3_weight",
+      "HpHp_L5_weight",
+      0.9972341957431318
+    ],
+    [
+      "HpHp_L3_mean",
+      "HH_L5_mean",
+      0.999207737919852
+    ],
+    [
+      "HpHp_L3_std",
+      "HpHp_L5_std",
+      0.9951472719534092
+    ],
+    [
+      "HpHp_L3_magnitude",
+      "HH_L5_magnitude",
+      0.9944494696821892
+    ],
+    [
+      "HpHp_L3_radius",
+      "HpHp_L5_radius",
+      0.9957035243228645
+    ],
+    [
+      "HpHp_L3_covariance",
+      "HpHp_L5_covariance",
+      0.9975278958297185
+    ],
+    [
+      "HpHp_L3_pcc",
+      "HpHp_L5_pcc",
+      0.9918120675135811
+    ],
+    [
+      "HpHp_L1_weight",
+      "HpHp_L5_weight",
+      0.9828378327007593
+    ],
+    [
+      "HpHp_L1_mean",
+      "HH_L5_mean",
+      0.9989079934047596
+    ],
+    [
+      "HpHp_L1_magnitude",
+      "HH_L5_magnitude",
+      0.9941903368718048
+    ],
+    [
+      "HpHp_L0.1_mean",
+      "HH_L5_mean",
+      0.9983126860591478
+    ],
+    [
+      "HpHp_L0.1_magnitude",
+      "HH_L5_magnitude",
+      0.9932604684489478
+    ],
+    [
+      "HpHp_L0.01_mean",
+      "HH_L5_mean",
+      0.9971147239136287
+    ],
+    [
+      "HpHp_L0.01_magnitude",
+      "HH_L5_magnitude",
+      0.9908059204730334
+    ]
+  ],
+  "importances": {
+    "MI_dir_L0.01_mean": 0.13091462137047782,
+    "MI_dir_L0.01_variance": 0.11222231769670639,
+    "MI_dir_L0.1_weight": 0.10016293903507092,
+    "MI_dir_L1_weight": 0.07779723271084737,
+    "MI_dir_L0.01_weight": 0.06727497089610093,
+    "MI_dir_L1_mean": 0.05845575051683517,
+    "HH_L5_magnitude": 0.052052501493281056,
+    "MI_dir_L5_mean": 0.04214373046565626,
+    "HH_L5_mean": 0.041252164395746665,
+    "MI_dir_L5_weight": 0.03449451652684241,
+    "HH_L0.1_weight": 0.03386241134383484,
+    "HH_L5_weight": 0.033796948797162274,
+    "MI_dir_L1_variance": 0.03288392316944418,
+    "HH_L0.01_weight": 0.028256505187161808,
+    "HpHp_L0.1_weight": 0.025753075357372316,
+    "HpHp_L0.01_weight": 0.02121957419800633,
+    "MI_dir_L5_variance": 0.016755696243564922,
+    "HH_L0.01_std": 0.01547628055632613,
+    "HpHp_L5_weight": 0.01225855757332136,
+    "HpHp_L0.01_std": 0.009147861065748008,
+    "HH_L0.01_radius": 0.009051001818311605,
+    "HpHp_L0.1_std": 0.006662763238373029,
+    "HH_L0.1_std": 0.006366746230961504,
+    "HpHp_L5_std": 0.006106980248374061,
+    "HH_L1_std": 0.005081875917888525,
+    "HpHp_L1_std": 0.004314303917842308,
+    "HH_L0.1_radius": 0.003829842232331669,
+    "HH_L1_radius": 0.0022475640247909896,
+    "HH_L0.01_pcc": 0.0019355918343864859,
+    "HH_L5_std": 0.00193312965815814,
+    "HH_L0.1_pcc": 0.0016081538353512528,
+    "HpHp_L0.01_pcc": 0.0010684292930407807,
+    "HH_L5_radius": 0.0007101500265343338,
+    "HpHp_L0.01_radius": 0.0005658504246710766,
+    "HH_L1_pcc": 0.00032916225695160494,
+    "HH_L0.01_covariance": 0.0003240261825323804,
+    "HpHp_L1_radius": 0.0002897716586197189,
+    "HpHp_L0.1_radius": 0.00025506015865617683,
+    "HH_L3_pcc": 0.0001789898910270519,
+    "HH_L0.1_covariance": 0.00016521943555604908,
+    "HpHp_L0.1_pcc": 0.0001615066129583309,
+    "HpHp_L5_radius": 0.0001325781872980681,
+    "HpHp_L0.01_covariance": 0.00010427671939914447,
+    "HpHp_L1_pcc": 9.577172608798392e-05,
+    "HH_L1_covariance": 7.574675904037514e-05,
+    "HpHp_L5_covariance": 5.3400336339266493e-05,
+    "HH_L5_pcc": 5.254588762478484e-05,
+    "HpHp_L0.1_covariance": 4.969444804914709e-05,
+    "HpHp_L5_pcc": 3.435256936054056e-05,
+    "HpHp_L1_covariance": 2.682237230518988e-05,
+    "HH_L5_covariance": 7.113497671199394e-06
+  }
+}
