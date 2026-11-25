@@ -44,7 +44,7 @@ ping -c 3 1.1.1.1
 Trên máy Windows (host):
 
 ```powershell
-git clone [<URL-repo-này>](https://github.com/JimmyDo0504/ddos-iot-detection.git) ddos-iot
+git clone https://github.com/JimmyDo0504/ddos-iot-detection.git ddos-iot
 ```
 
 Trên **Kali Gateway**, bật SSH rồi chép repo sang (không cần `datasets/`, `data/`,
